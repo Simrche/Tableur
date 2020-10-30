@@ -15,7 +15,7 @@
                 
                     foreach($paris as $pari) :
                     $tout = $tout + ( $pari['par_cote']*$pari['par_mise']-$pari['par_mise']);
-                    if($pari['par_gagnant'] === "on") {?>
+                    if($pari['par_gagnant'] === "salut") {?>
                         <div class='proto'>
                             <p class='vert'><?php echo $pari['par_id']?></p>
                             <p class='vert'><?php echo $pari['par_pseudo'] ?></p>

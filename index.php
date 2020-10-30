@@ -12,6 +12,38 @@
         par_gagnant VARCHAR(25)
         );");
 
+$bdd->query("CREATE TABLE chat(
+    message_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    chat_message VARCHAR(255),
+    chat_pseudo VARCHAR(255),
+    chat_heure DATETIME
+    );");
+    
+    $erreur = "";
+    
+    $requete = $bdd->prepare("INSERT INTO chat(chat_message, chat_pseudo, chat_heure) VALUES(?, ?, NOW());");
+    
+    $messages =  $bdd->query("SELECT message_id as id, chat_message as message, chat_pseudo as pseudo, chat_heure as heure FROM chat ORDER BY message_id DESC LIMIT 0, 10;");
+    
+    if (!empty($_SESSION['pseudo']))
+    {
+        if (isset($_POST['sendMessage']))
+        {
+            if (iconv_strlen($_POST['message']) <= 140)
+            {
+                $requete->execute(array($_POST['message'], $_SESSION['pseudo']));
+                header("Location: index.php");
+            }
+            else{
+                $erreur = "<p class='erreur'>Le message ne doit pas depasser 140 caractères. Espece de petit spameur !";
+            }
+    
+        }
+    } else {
+        if(isset($_POST['sendMessage'])) {
+            header('location: connexion.php');
+        }
+    }
     $requete = $bdd->prepare("INSERT INTO parisTerminer(par_pseudo, par_titre, par_cote, par_mise, par_gagnant) VALUES(?, ?, ?, ?, ?);");
 
     if(isset($_POST['submit'])) {
@@ -33,8 +65,14 @@
             <button id='ajouter'>+</button>
             <h2>AJOUTER UN PARI</h2>
         </section>";
-
-        }?>
+        } else {
+         echo "
+         <section id='ajoutPari'>
+            <a href='connexion.php'>Connectez vous pour pouvoir ajouter des paris</a> 
+        </section>";
+        }
+            
+            ?>
 
         <section id="projet">
             <div id="classement">
@@ -56,7 +94,7 @@
                     <p><span class="gras">Gains</span></p>
                 </div>
                 <?php foreach($paris as $pari) :
-                    if($pari['gagnant'] === "on") {?>
+                    if($pari['gagnant'] != null) {?>
                         <div class='proto'>
                             <p class='vert'><?php echo $pari['id']?></p>
                             <p class='vert'><?php echo $pari['pseudo'] ?></p>
@@ -79,6 +117,27 @@
             </div>
             <div id="enligne">
                 <h3>En ligne</h3>
+                <form method="post" action="index.php" id="formChat">
+						<h3>Salut <?php echo $_SESSION['pseudo'];?> !</h3><br>
+						<?php echo $erreur; ?>
+						<div>
+							<input type="text" name="message">
+						</div><br>
+						<input type="submit" name="sendMessage">
+						<input type="submit" value='Deconnexion' name='decon'>
+					</form><br>
+                    <div id="chat">
+                <?php 
+	          		foreach($messages as $message) : ?>
+
+		          	<?php 
+		          		$msg = htmlspecialchars($message['message']);
+		          	?>
+
+		            <div class='testD'><p class="chatMSG"><?php echo '<span>' . $message['pseudo'] . '</span> : ' . $msg; ?></p></div>
+
+		          	<?php endforeach; ?>
+                </div>
             </div>
         </section>
 
@@ -91,7 +150,7 @@
                     <input type="int" placeholder="Côte" id="cote" name="cote">
                     <input type="int" placeholder="Mise" id="mise" name="mise">
                     <h2>Si votre pari est gagnant cochez la case</h2>
-                    <input type="checkbox" placeholder="Paris gagné ?" name="gagner">
+                    <input type="checkbox" placeholder="Paris gagné ?" name="gagner" value="salut">
                     <input type="submit" id="envoyer" name="submit">
                 </form>
         </section>

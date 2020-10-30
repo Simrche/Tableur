@@ -154,21 +154,21 @@ header a:hover, #aussi:hover {
 #enligne {
     width: 15%;
     border: solid black 1px;
-    height: 700px;
     margin-right: 25px;
     margin-top: 25px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     position: -webkit-sticky;
     position: sticky;
     top: 20px;
 }
 
+
 #enligne h3, #classement h3 {
     font-weight: bold;
     text-transform: uppercase;
-    margin-top: 15px;
+    margin: 25px auto 0 auto;
 }
 
 #bonjour {
@@ -186,6 +186,19 @@ header a:hover, #aussi:hover {
 
 .red {
     background-color: #FF7B7B;
+}
+
+.chatMSG {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.chatMSG span {
+    color: red;
+}
+
+#chat {
+    width: 100%;
 }
 
 /* ------------------ CONNEXION ------------------ */
@@ -227,6 +240,8 @@ header a:hover, #aussi:hover {
 .connect button {
     padding: 5px 20px;
 }
+
+
 
 /* ------------------ PROFIL -------------------- */
 

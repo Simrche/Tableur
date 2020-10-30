@@ -7,12 +7,14 @@
         users_pseudo VARCHAR(255),
         users_email VARCHAR(255),
         users_mdp VARCHAR(255)
+        users_img
         );");
 
     $requete = $bdd->prepare("INSERT INTO users(users_pseudo, users_email, users_mdp) VALUES(?, ?, ?);");
 
     if(isset($_POST['inscription'])) {
         $requete->execute(array($_POST['pseudo'], $_POST['email'], $_POST['motdepasse']));
+        header('location: connexion.php');
     }
 ?>
 
