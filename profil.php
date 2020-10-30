@@ -9,8 +9,8 @@
 <?php include 'inc/header-inc.php'; ?>
 
         <section id="profil">
-            <h1><?php echo $_SESSION['pseudo']?></h1>
-            <?php $paris->execute(array('pseudo' => $_SESSION['pseudo'])) ;
+            <h1><?php echo $_GET['profil']?></h1>
+            <?php $paris->execute(array('pseudo' => $_GET['profil'])) ;
             
                 
                     foreach($paris as $pari) :

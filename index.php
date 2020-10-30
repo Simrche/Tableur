@@ -1,5 +1,6 @@
 <?php 
     session_start();
+    ini_set('display_errors', 'off');
     $yes = 0;
     $oui = "oui";
     $bdd = new PDO("mysql:host=localhost;dbname=test;charset=utf8", "root", "");
@@ -77,6 +78,7 @@ $bdd->query("CREATE TABLE chat(
         <section id="projet">
             <div id="classement">
                 <h3>Classement</h3>
+                <p>En cours de développement</p>
                 <?php 
                     foreach($classement as $classements) :
                         $yes = $yes + ($classements['cote']*$classements['mise']-$classements['mise']);
@@ -97,7 +99,7 @@ $bdd->query("CREATE TABLE chat(
                     if($pari['gagnant'] != null) {?>
                         <div class='proto'>
                             <p class='vert'><?php echo $pari['id']?></p>
-                            <p class='vert'><?php echo $pari['pseudo'] ?></p>
+                            <p class='vert'><a href="profil.php?profil=<?php echo $pari['pseudo']?>"><?php echo $pari['pseudo'] ?></a></p>
                             <p class='vert'><?php echo $pari['titre'] ?></p>
                             <p class='vert'><?php echo $pari['mise'] ?>€</p>
                             <p class='vert'><?php echo $pari['cote'] ?></p>
@@ -107,7 +109,7 @@ $bdd->query("CREATE TABLE chat(
                     } else { ?>
                         <div class='proto'>
                         <p class='red'><?php echo $pari['id']?></p>
-                        <p class='red'><?php echo $pari['pseudo'] ?></p>
+                        <p class='red'><a href="profil.php?profil=<?php echo $pari['pseudo']?>"><?php echo $pari['pseudo'] ?></a></p>
                         <p class='red'><?php echo $pari['titre'] ?></p>
                         <p class='red'><?php echo $pari['mise'] ?>€</p>
                         <p class='red'><?php echo $pari['cote'] ?></p>
@@ -116,15 +118,15 @@ $bdd->query("CREATE TABLE chat(
                 <?php  } endforeach ?>
             </div>
             <div id="enligne">
-                <h3>En ligne</h3>
+                <h3>Chat</h3>
                 <form method="post" action="index.php" id="formChat">
 						<h3>Salut <?php echo $_SESSION['pseudo'];?> !</h3><br>
 						<?php echo $erreur; ?>
 						<div>
-							<input type="text" name="message">
+							<input type="text" name="message" id="champsMsg">
 						</div><br>
-						<input type="submit" name="sendMessage">
-						<input type="submit" value='Deconnexion' name='decon'>
+						<input type="submit" name="sendMessage" class="chatButton">
+						<input type="submit" value='Deconnexion' name='decon' class='chatButton'>
 					</form><br>
                     <div id="chat">
                 <?php 

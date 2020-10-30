@@ -116,6 +116,11 @@ header a:hover, #aussi:hover {
     width: 90%;
 }
 
+.proto a {
+    text-decoration: none;
+    color: blue;
+}
+
 .proto p {
     width: 20%;
     text-align: center;
@@ -164,6 +169,12 @@ header a:hover, #aussi:hover {
     top: 20px;
 }
 
+#formChat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
 
 #enligne h3, #classement h3 {
     font-weight: bold;
@@ -199,6 +210,26 @@ header a:hover, #aussi:hover {
 
 #chat {
     width: 100%;
+}
+
+.chatButton {
+    width: 80%;
+    background-color: green;
+    border: none;
+    padding: 10px;
+    color: white;
+    border: black solid 1px;
+    margin-top: 10px;
+}
+
+#formChat div {
+    width: 80%;
+}
+
+#champsMsg {
+    width: 100%;
+    padding: 10px;
+    margin-left: -15px;
 }
 
 /* ------------------ CONNEXION ------------------ */

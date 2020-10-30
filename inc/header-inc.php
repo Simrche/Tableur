@@ -26,7 +26,7 @@
             if($_SESSION['pseudo'] == '') {
                 echo "<a href='connexion.php'>CONNEXION</a> <a href='inscription.php'>INSCRIPTION</a>";
             } else {
-                echo "<p id='bonjour'>Bonjour, ". $_SESSION['pseudo'] ."</p><a href='profil.php'>Mon Profil</a><form method='post'><input id='aussi' type='submit' name='decon' value='DECO'></form>";
+                echo "<p id='bonjour'>Bonjour, ". $_SESSION['pseudo'] ."</p><a href='profil.php?profil=". $_SESSION['pseudo'] ."'>Mon Profil</a><form method='post'><input id='aussi' type='submit' name='decon' value='DECO'></form>";
             }
             
             ?>
